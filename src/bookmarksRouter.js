@@ -14,7 +14,7 @@ bookmarkRouter
             .json(bookmarks)
     })
     .post(bodyParser, (req, res) => {
-        const { title, rating, description} = req.query;
+        const { title, rating, description} = req.body;
         const id = uuid()
         const newBookmark = {
             id,
