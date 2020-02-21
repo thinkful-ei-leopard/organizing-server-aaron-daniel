@@ -15,8 +15,9 @@ bookmarkRouter
     })
     .post(bodyParser, (req, res) => {
         const { title, rating, description} = req.query;
+        const id = uuid()
         const newBookmark = {
-            id: uuid,
+            id,
             title,
             description,
             rating,
@@ -51,7 +52,7 @@ bookmarkRouter
             res
                 .status(200)
                 .end()
-                bookmarks.push(newBookmark)
+                bookmarks.bookmarks.push(newBookmark)
         }
     })
 
@@ -59,12 +60,12 @@ bookmarkRouter
     .route('/bookmarks/:id')
     .get((req, res) => {
         const bookmarkId = req.params.id;
-        const foundBookmark = bookmarks.find(bookmark => bookmark.id === bookmarkId)
+        console.log(bookmarks)
+        const foundBookmark = bookmarks.bookmarks.find(bookmark => bookmark.id === bookmarkId)
         if(foundBookmark) {
             return res
                 .status(200)
-                .send('Found Bookmark')
-                .json(foundBookmark)
+                .send(foundBookmark)
         }
         else {
             logger.error(`Bookmark with id ${bookmarkId} not found`)
@@ -75,7 +76,7 @@ bookmarkRouter
     })
     .delete((req, res) => {
         const bookmarkId = req.params.id;
-        const index = bookmarks.findIndex(bookmark => bookmark.id === bookmarkId);
+        const index = bookmarks.bookmarks.findIndex(bookmark => bookmark.id === bookmarkId);
         if(index === -1) {
             logger.error(`Bookmark with id ${bookmarkId} not found`)
             return res 
@@ -84,7 +85,7 @@ bookmarkRouter
         }
         else {
             logger.info(`Bookmark with id ${bookmarkId} deleted`)
-            bookmarks.splice(index, 1)
+            bookmarks.bookmarks.splice(index, 1)
             return res 
                 .status(204)
                 .end()

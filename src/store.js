@@ -1,4 +1,6 @@
-const bookmarks = [
+
+
+bookmarks = [
     {
         id: 'aaaa',
         title: "The Webpage",
