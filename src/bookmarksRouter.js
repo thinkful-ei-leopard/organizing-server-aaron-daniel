@@ -51,7 +51,8 @@ bookmarkRouter
             logger.info('Bookmark saved')
             res
                 .status(200)
-                .end()
+                .location(`/bookmarks/${newBookmark.id}`)
+                .send(`Bookmark Saved, bookmark id ${newBookmark.id}`)
                 bookmarks.bookmarks.push(newBookmark)
         }
     })

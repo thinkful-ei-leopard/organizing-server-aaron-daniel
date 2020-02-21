@@ -3,3 +3,10 @@
 {"message":"Bookmark saved","level":"info"}
 {"message":"Bookmark saved","level":"info"}
 {"message":"Bookmark with id bbbb deleted","level":"info"}
+{"message":"Title required","level":"error"}
+{"message":"Title required","level":"error"}
+{"message":"Title required","level":"error"}
+{"message":"Title required","level":"error"}
+{"message":"Bookmark saved","level":"info"}
+{"message":"Bookmark saved","level":"info"}
+{"message":"Bookmark saved","level":"info"}
