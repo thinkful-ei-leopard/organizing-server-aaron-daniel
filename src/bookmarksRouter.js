@@ -13,7 +13,7 @@ bookmarkRouter
             .status(200)
             .json(bookmarks)
     })
-    .post((req, res) => {
+    .post(bodyParser, (req, res) => {
         const { title, rating, description} = req.query;
         const newBookmark = {
             id: uuid,
@@ -22,31 +22,35 @@ bookmarkRouter
             rating,
         };
         if(!title) {
+            logger.error('Title required')
             return res
                 .status(400)
                 .send('Title required')
         }
         if(!rating) {
+            logger.error('Rating required')
             return res
                 .status(400)
                 .send('Rating required')
         }
         if(!description) {
+            logger.error('Description required')
             return res
                 .status(400)
                 .send('Description required')
         }
         const ratingNum = parseFloat(rating);
         if(Number.isNaN(ratingNum)) {
+            logger.error('Rating must be a number')
             return res 
                 .status(400)
                 .send('Rating must be a number')
         }
         else {
-            
+            logger.info('Bookmark saved')
             res
                 .status(200)
-                .send('Bookmark Saved')
+                .end()
                 bookmarks.push(newBookmark)
         }
     })
@@ -63,6 +67,7 @@ bookmarkRouter
                 .json(foundBookmark)
         }
         else {
+            logger.error(`Bookmark with id ${bookmarkId} not found`)
             return res
                 .status(404)
                 .send('Bookmark not found')
@@ -72,14 +77,18 @@ bookmarkRouter
         const bookmarkId = req.params.id;
         const index = bookmarks.findIndex(bookmark => bookmark.id === bookmarkId);
         if(index === -1) {
+            logger.error(`Bookmark with id ${bookmarkId} not found`)
             return res 
                 .status(404)
                 .send('Bookmark not found')
         }
         else {
+            logger.info(`Bookmark with id ${bookmarkId} deleted`)
             bookmarks.splice(index, 1)
             return res 
                 .status(204)
                 .end()
         }
     })
+
+    module.exports = bookmarkRouter;
